@@ -16,6 +16,15 @@
             Invoke-Command -ComputerName $Computer.Name -ErrorAction SilentlyContinue -ScriptBlock {
                 if(Test-Path -Path C:\Windows\Temp\DBUtil_2_3.Sys -PathType Leaf){
                     Write-Host "Windows->Temp folder: DBUtil_2_3.Sys found!" -ForegroundColor White -BackgroundColor DarkRed
+                    if ($Clean) {
+                        Write-Host "Removing DBUtil_2_3.Sys..." -ForegroundColor Yellow
+                        Remove-Item -Path "C:\Windows\Temp\DBUtil_2_3.Sys"
+                        if(!(Test-Path -Path C:\Windows\Temp\DBUtil_2_3.Sys -PathType Leaf)){
+                            Write-Host "Deleted successfully!" -ForegroundColor White -BackgroundColor DarkGreen
+                        } else {
+                            Write-Host "Error!" -ForegroundColor White -BackgroundColor DarkRed
+                        }
+                    }
                 } else {
                     Write-Host "DBUtil_2_3.Sys not found!" -ForegroundColor White -BackgroundColor DarkGreen
                 }
