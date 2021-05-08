@@ -14,9 +14,11 @@
         if (Test-Connection -ComputerName $Computer.Name -Quiet -Count 2 -ErrorAction SilentlyContinue) {
             Write-Host "$($Computer.Name):" -ForegroundColor White -BackgroundColor DarkGreen
             Invoke-Command -ComputerName $Computer.Name -ErrorAction SilentlyContinue -ScriptBlock {
+                Write-Verbose "Scan"
                 if(Test-Path -Path "C:\Windows\Temp\DBUtil_2_3.Sys" -PathType Leaf){
                     Write-Host "Windows->Temp folder: DBUtil_2_3.Sys found!" -ForegroundColor White -BackgroundColor DarkRed
                     if ($Clean) {
+                        Write-Verbose "Clean: Windows->Temp"
                         Write-Host "Removing DBUtil_2_3.Sys..." -ForegroundColor Yellow
                         Remove-Item -Path "C:\Windows\Temp\DBUtil_2_3.Sys"
                         if(!(Test-Path -Path "C:\Windows\Temp\DBUtil_2_3.Sys" -PathType Leaf)){
@@ -34,6 +36,7 @@
                     if(Test-Path -Path "C:\Users\$($user.Name)\AppData\Local\Temp\DBUtil_2_3.Sys"){
                         Write-Host "$($user.Name)->Temp folder: DBUtil_2_3.Sys found!" -ForegroundColor White -BackgroundColor DarkRed
                         if ($Clean) {
+                            Write-Verbose "Clean: User->Temp"
                             Write-Host "Removing DBUtil_2_3.Sys..." -ForegroundColor Yellow
                             Remove-Item -Path (Get-ChildItem -Path "C:\Users\$($user.Name)\AppData\Local\Temp" -Filter DBUtil_2_3.Sys -Recurse -ErrorAction SilentlyContinue -Force).FullName
                             if(!(Test-Path -Path "C:\Users\$($user.Name)\AppData\Local\Temp\DBUtil_2_3.Sys")){
