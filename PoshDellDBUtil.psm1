@@ -14,6 +14,7 @@
         if (Test-Connection -ComputerName $Computer.Name -Quiet -Count 2 -ErrorAction SilentlyContinue) {
             Write-Host "$($Computer.Name):" -ForegroundColor White -BackgroundColor DarkGreen
             Invoke-Command -ComputerName $Computer.Name -ErrorAction SilentlyContinue -ScriptBlock {
+                param($Clean)
                 Write-Verbose "Scan"
                 if(Test-Path -Path "C:\Windows\Temp\DBUtil_2_3.Sys" -PathType Leaf){
                     Write-Host "Windows->Temp folder: DBUtil_2_3.Sys found!" -ForegroundColor White -BackgroundColor DarkRed
@@ -49,7 +50,7 @@
                         Write-Host "DBUtil_2_3.Sys not found at $($user.Name)->Temp!" -ForegroundColor White -BackgroundColor DarkGreen
                     }
                 }
-            }
+            } -ArgumentList $Clean
         } else {
             Write-Host "$($Computer.Name) not reachable!" -ForegroundColor White -BackgroundColor DarkRed
         }

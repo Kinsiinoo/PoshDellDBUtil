@@ -1,6 +1,6 @@
 # PoshDellDBUtil
 
-PoshDellDBUtil 0.1.0
+PoshDellDBUtil 0.2.0
 
 Scan and removal tool for **DSA-2021-088** / **CVE-2021-21551**
 
@@ -25,6 +25,14 @@ Scan and Clean mode:
 ```PowerShell
 Invoke-PoshDDClean -ComputerOU "OU=Computers,OU=xx,DC=xx,DC=xx,DC=xx" -Clean
 ```
+
+## Known issues
+
+- ~~[#1](https://github.com/Kinsiinoo/PoshDellDBUtil/issues/1) `$Clean` variable~~
+
+## Changelog
+
+**0.2.0:** Fixed a bug where the code did not pass the `$Clean` variable to `Invoke-Command` (st#pid mistake :upside_down_face: )
 
 ## Note
 
